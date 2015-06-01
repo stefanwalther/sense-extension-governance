@@ -1,0 +1,137 @@
+<div qv-extension class="qv-object-swr-extensionsused">
+	<div class="extension-container">
+
+		<div ng-if="isLoading" class="loading-indicator-container">
+			<div class="loading-indicator">
+				<b>Analyzing apps ...</b><br/>
+				<img src="/extensions/swr-extensiongovernance/lib/svg/loading-cylon.svg" width="64" height="64"/><br/>
+				<span class="loading-status-hint">{{loadingStatusHint}}</span>
+			</div>
+		</div>
+
+		<div class="swr-tabs">
+			<ul>
+				<li ng-class="{'active': selectedTab === 'installed'}" qva-activate="selectTab('installed');">Installed Extensions</li>
+				<li ng-class="{'active': selectedTab === 'usage'}" qva-activate="selectTab('usage');">Extension Usage</li>
+				<li ng-class="{'active': selectedTab === 'missing'}" qva-activate="selectTab('missing');">Missing Extensions</li>
+			</ul>
+		</div>
+
+		<div class="content-container">
+
+			<div ng-if="selectedTab === 'installed'" class="content-section">
+
+				<div class="swr-note info">
+					The below listed visualization extensions are available on your system.
+				</div>
+
+				<div class="tbl-details-container">
+					<table class="tbl-details">
+						<thead>
+						<tr>
+							<th style="width:15px;">Usage</th>
+							<th class="left">Name</th>
+							<th class="center nowrap">Usage count</th>
+							<th class="left">Id</th>
+							<th class="left">Author</th>
+							<th class="right">Version</th>
+							<th class="center">Description</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr class="main pointer" ng-repeat-start="ext in installedExtensions | orderBy: id" qva-activate="toggleInstalledUsage(this);">
+							<td class="arrow center installed_arrow_{{$index}}">&#9654;</td>
+							<td class="bold nowrap" ng-bind="ext.data.name"/>
+							<td class="center nowrap" ng-bind="ext.usedIn.length"/>
+							<td class="nowrap" ng-bind="ext.id"/>
+							<td class="nowrap" ng-bind="ext.data.author"/>
+							<td class="right nowrap" ng-bind="ext.data.version"/>
+							<td class="ellipsis" style="overflow:hidden;max-width: 300px;" ng-bind="ext.data.description" title="{{ext.data.description}}"/>
+						</tr>
+						<!-- animation works only for divs -->
+						<tr class="usage pointer" ng-repeat-end qva-activate="toggleInstalledUsage(this);">
+							<td colspan="7">
+								<div class="hidden usage-container installedExtensionUsage_{{$index}}">
+									<!--<div class="x" qva-activate="toggleInstalledUsage(this);">x</div>-->
+									<div ng-if="ext.usedIn.length > 0">
+										<b>"{{ext.data.name}}"</b> is used in the following apps ({{ext.usedIn.length}}):<br/>
+										<ul>
+											<li ng-repeat="app in ext.usedIn">
+												<b>{{app.qTitle}}</b> ({{app.useCount}}x)
+											</li>
+										</ul>
+									</div>
+									<div ng-if="ext.usedIn.length === 0">
+										<b>"{{ext.data.name}}"</b> is
+										<span class="red-bold">NOT</span> used in any of your apps<br/>
+									</div>
+								</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div ng-if="selectedTab === 'usage'" class="content-section">
+				<div class="swr-note">
+					If you want to get some detailed information which of your apps used non-native objects, this is the perfect view for you.
+				</div>
+				<div class="tbl-details-container">
+					<table class="tbl-details">
+						<thead>
+						<tr>
+							<th style="width:15px;">Usage</th>
+							<th class="left">App Title</th>
+							<th class="center nowrap"># Extensions</th>
+							<th>App Id</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="app in apps">
+							<td class="arrow center usage_arrow_{{$index}}">&#9654;</td>
+							<td class="bold left nowrap" ng-bind="app.qTitle"></td>
+							<td class="center" ng-bind="app.usedExtensions.length"></td>
+							<td class="left" ng-bind="app.qDocName"></td>
+							<td></td>
+						</tr>
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+
+			<div ng-if="selectedTab === 'missing'" class="content-section">
+				<div class="swr-note error">
+					The following extensions are used in some of your apps but are not available on your system.
+				</div>
+				<div class="tbl-details-container">
+					<table class="tbl-details">
+						<thead>
+						<tr>
+							<th>Usage</th>
+							<th>Missing Extension</th>
+							<th># Times used</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="missingExtension in missingExtensions">
+							<td class="arrow center missing_arrow_{{$index}}">&#9654;</td>
+							<td class="bold red nowrap">{{missingExtension}}</td>
+							<td style="width:90%;"></td>
+						</tr>
+						</tbody>
+
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+		<pre ng-if="1===2" ng-bind="installedExtensions | json"></pre>
+		<pre ng-if="1===1" ng-bind="apps | json"></pre>
+
+	</div>
+</div>

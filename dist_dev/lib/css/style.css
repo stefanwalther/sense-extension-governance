@@ -1,0 +1,173 @@
+.qv-object-swr-extensionsused {
+  position: relative;
+  height: 100%;
+}
+.qv-object-swr-extensionsused .extension-container {
+  height: 100%;
+  position: relative;
+}
+.qv-object-swr-extensionsused .content-container {
+  height: calc(100% - 50px);
+  position: relative;
+}
+.qv-object-swr-extensionsused .content-section {
+  height: 100%;
+  position: relative;
+}
+.qv-object-swr-extensionsused .loading-indicator-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+  opacity: 0.9;
+  z-index: 2;
+}
+.qv-object-swr-extensionsused .loading-indicator {
+  height: 80px;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  overflow: hidden;
+  padding-bottom: calc(40px);
+}
+.qv-object-swr-extensionsused .loading-status-hint {
+  color: #333;
+}
+.qv-object-swr-extensionsused .hidden {
+  display: none;
+}
+.qv-object-swr-extensionsused .left {
+  text-align: left;
+}
+.qv-object-swr-extensionsused .right {
+  text-align: right;
+}
+.qv-object-swr-extensionsused .center {
+  text-align: center;
+}
+.qv-object-swr-extensionsused .bold {
+  font-weight: bold;
+}
+.qv-object-swr-extensionsused .arrow {
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+}
+.qv-object-swr-extensionsused .pointer {
+  cursor: pointer;
+}
+.qv-object-swr-extensionsused .nowrap {
+  white-space: nowrap;
+}
+.qv-object-swr-extensionsused .ellipsis {
+  text-overflow: ellipsis;
+}
+.qv-object-swr-extensionsused .red {
+  color: #CE4844;
+}
+.qv-object-swr-extensionsused div.tbl-details-container {
+  overflow: auto;
+  position: relative;
+  height: calc(100% - 120px);
+}
+.qv-object-swr-extensionsused table.tbl-details thead tr th {
+  padding: 9px;
+  background-color: #F6F6F6;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr td {
+  padding: 8px;
+  border-bottom: 1px solid #F6F6F6;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr.main:nth-child(4n+3) {
+  background-color: #FDFDFD;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr.usage {
+  padding: 0px;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr.usage td {
+  padding: 0px;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr.usage div.usage-container {
+  position: relative;
+  background-color: #F6F6F6;
+  padding: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left-width: 5px;
+  border-left-style: solid;
+  border-left-color: #ccc;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr.usage div.usage-container .x {
+  display: none;
+  position: absolute;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 24px;
+  display: inline;
+  right: 10px;
+  top: 0px;
+  color: #999;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr.usage div.usage-container .x:hover {
+  color: #666;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr.usage div.usage-container ul {
+  list-style: square;
+  margin-left: 40px;
+  margin-top: 15px;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr.usage div.usage-container ul li {
+  line-height: 1.8em;
+}
+.swr-tabs {
+  height: 50px;
+}
+.swr-tabs ul {
+  list-style: none;
+}
+.swr-tabs ul li {
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  float: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 3px;
+  margin-right: 5px;
+}
+.swr-tabs ul li:hover {
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+  border-bottom-color: #d0d0d0;
+}
+.swr-tabs ul li.active {
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+  border-bottom-color: orange !important;
+}
+.swr-note {
+  margin-bottom: 20px;
+  border-color: #eee;
+  border-style: solid;
+  border-width: 1px;
+  padding: 20px;
+  background-color: #FDFDFD;
+  border-radius: 3px;
+  font-size: 1.1em;
+  border-left-width: 5px;
+  border-left-style: solid;
+}
+.swr-note.info {
+  border-left-color: #5BC0DE;
+}
+.swr-note.error {
+  border-left-color: #CE4844;
+}
