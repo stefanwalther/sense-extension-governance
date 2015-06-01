@@ -86,6 +86,13 @@
   padding: 8px;
   border-bottom: 1px solid #F6F6F6;
 }
+.qv-object-swr-extensionsused table.tbl-details tbody tr td span.link {
+  color: blue;
+  cursor: pointer;
+}
+.qv-object-swr-extensionsused table.tbl-details tbody tr td span.link:hover {
+  text-decoration: underline;
+}
 .qv-object-swr-extensionsused table.tbl-details tbody tr.main:nth-child(4n+3) {
   background-color: #FDFDFD;
 }

@@ -1,0 +1,24 @@
+<div class="content-section">
+	<div class="swr-note error">
+		The following extensions are used in some of your apps but are not available on your system.
+	</div>
+	<div class="tbl-details-container">
+		<table class="tbl-details">
+			<thead>
+			<tr>
+				<th>Usage</th>
+				<th>Missing Extension</th>
+				<th># Times used</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="missingExtension in missingExtensions">
+				<td class="arrow center missing_arrow_{{$index}}">&#9654;</td>
+				<td class="bold red nowrap">{{missingExtension}}</td>
+				<td style="width:90%;"></td>
+			</tr>
+			</tbody>
+
+		</table>
+	</div>
+</div>

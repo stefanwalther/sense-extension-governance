@@ -1,0 +1,45 @@
+<div class="content-section">
+	<div class="swr-note">
+		If you want to get some detailed information which of your apps used non-native objects, this is the perfect view for you.
+	</div>
+	<div class="tbl-details-container">
+		<table class="tbl-details">
+			<thead>
+			<tr>
+				<th style="width:15px;">Usage</th>
+				<th class="left">App Title</th>
+				<th class="center nowrap"># Extensions Used</th>
+				<th class="center"># Missing Extensions</th>
+				<th>App Id</th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody swr-collapse ng-repeat="app in apps">
+			<tr class="main pointer" qva-activate="toggleCollapse();">
+				<td class="arrow center">
+					<span ng-if="isCollapsed" qva-activate="toggleCollapse();">
+						&#9654;
+					</span>
+					<span ng-if="!isCollapsed">
+						&#9660;
+					</span>
+				</td>
+				<td class="bold left nowrap" ng-bind="app.qTitle"></td>
+				<td class="center" ng-class="{'bold': app.usedExtensions.length > 0}" ng-bind="app.usedExtensions.length"></td>
+				<td class="center" ng-class="{'red bold': app.missingExtensions.length > 0}" ng-bind="app.missingExtensions.length"></td>
+				<td class="left" ng-bind="app.qDocName"></td>
+				<td></td>
+			</tr>
+			<tr class="usage pointer" qva-activate="toggleCollapse();" ng-if="!isCollapsed">
+				<td colspan="7">
+					<div class="usage-container">
+						Installed ...
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</div>

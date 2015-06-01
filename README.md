@@ -6,8 +6,9 @@
 ## Purpose and Description
 
 * Did you ever want to know where are you using a particular visualization extension?
-* Did you ever want to know if you have any broken/missing visualization extension across your environment?
+* Did you ever want to know if you have any **broken/missing visualization extension** across your environment?
 * Did you ever want to get an overview which visualization extension are used in a particular app?
+* Do you want to prevent users getting an "Invalid visualization" error in your deployment because you've forgotten to install your visualization extensions properly?
 
 If you can answer one if the questions above with YES, then this solution might be interesting for you.
 

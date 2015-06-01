@@ -2,14 +2,18 @@ define( [
 		'jquery',
 		'underscore',
 		'qlik',
+		'angular',
 		'ng!$q',
 		'./properties',
 		'./initialproperties',
 		'./lib/js/extensionUtils',
 		'text!./lib/css/style.css',
-		'text!./template.ng.html'
+		'text!./template.ng.html',
+
+		// no return value
+		'./lib/directives/swr-collapse'
 	],
-	function ( $, _, qlik, $q, props, initProps, extensionUtils, cssContent, ngTemplate ) {
+	function ( $, _, qlik, angular, $q, props, initProps, extensionUtils, cssContent, ngTemplate ) {
 		'use strict';
 
 		extensionUtils.addStyleToHeader( cssContent );
@@ -44,7 +48,11 @@ define( [
 						.then( traverseApps )
 						.then( saveInspectedApps )
 						.then( analyzeExtensionUsage )
-						.then( loadingStatus.bind( null, false ) );
+						.then( loadingStatus.bind( null, false ) )
+						.then( function () {
+							console.info('apps', $scope.apps);
+							angular.noop();
+						});
 				};
 
 				function loadingStatus ( isLoading ) {
@@ -358,20 +366,17 @@ define( [
 				// ****************************************************************************************
 				$scope.selectedTab = 'installed';
 				$scope.selectTab = function ( tab ) {
-					console.info( 'selectTab', tab );
 					$scope.selectedTab = tab;
 				};
-				$scope.toggleInstalledUsage = function () {
-					var ar = $( '.installed_arrow_' + this.$index );
-					(ar.text() === '\u25B6' ) ? ar.text( '\u25BC' ) : ar.text( '\u25B6' );
-					$( '.installedExtensionUsage_' + this.$index ).stop( true, true ).slideToggle( {duration: 400} );
-					//this.stopPropagation = true;
+				$scope.openApp = function ( qDocId ) {
+					location.href = '/sense/app/' + encodeURIComponent(qDocId);
 				};
 
 				// ****************************************************************************************
 				// Initialization
 				// ****************************************************************************************
 				$scope.init();
+
 
 			}
 			]

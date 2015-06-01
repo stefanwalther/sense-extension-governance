@@ -1,52 +1,59 @@
-<div ng-if="selectedTab === 'installed'">
+<div class="content-section">
 
 	<div class="swr-note info">
-		The below listed visualization extensions are available on your system.<br/>
-		Click on one of the rows to see which apps are using a particular extensions.
+		The below listed visualization extensions are available on your system.
 	</div>
 
-	<table class="tbl-details-container">
-		<thead>
-		<tr>
-			<th style="width:15px;">Usage</th>
-			<th class="left">Name</th>
-			<th class="center nowrap">Usage count</th>
-			<th class="left">Id</th>
-			<th class="left">Author</th>
-			<th class="right">Version</th>
-			<th class="center">Description</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr class="main pointer" ng-repeat-start="ext in installedExtensions | orderBy: id" qva-activate="toggleInstalledUsage(this);">
-			<td class="arrow center installed_arrow_{{$index}}">&#9654;</td>
-			<td class="bold nowrap" ng-bind="ext.data.name"/>
-			<td class="center nowrap" ng-bind="ext.usedIn.length"/>
-			<td class="nowrap" ng-bind="ext.id"/>
-			<td class="nowrap" ng-bind="ext.data.author"/>
-			<td class="right nowrap" ng-bind="ext.data.version"/>
-			<td class="ellipsis" style="overflow:hidden;max-width: 300px;" ng-bind="ext.data.description" title="{{ext.data.description}}"/>
-		</tr>
-		<!-- animation works only for divs -->
-		<tr class="usage pointer" ng-repeat-end qva-activate="toggleInstalledUsage(this);">
-			<td colspan="7">
-				<div class="hidden usage-container installedExtensionUsage_{{$index}}">
-					<!--<div class="x" qva-activate="toggleInstalledUsage(this);">x</div>-->
-					<div ng-if="ext.usedIn.length > 0">
-						<b>"{{ext.data.name}}"</b> is used in the following apps ({{ext.usedIn.length}}):<br/>
-						<ul>
-							<li ng-repeat="app in ext.usedIn">
-								<b>{{app.qTitle}}</b> ({{app.useCount}}x)
-							</li>
-						</ul>
+	<div class="tbl-details-container">
+		<table class="tbl-details">
+			<thead>
+			<tr>
+				<th style="width:15px;">Usage</th>
+				<th class="left">Name</th>
+				<th class="center nowrap">Usage count</th>
+				<th class="left">Id</th>
+				<th class="left">Author</th>
+				<th class="right">Version</th>
+				<th class="center">Description</th>
+			</tr>
+			</thead>
+			<tbody swr-collapse ng-repeat="ext in installedExtensions">
+			<tr class="main pointer" qva-activate="toggleCollapse();">
+				<td class="arrow center">
+					<span ng-if="isCollapsed" qva-activate="toggleCollapse();">
+						&#9654;
+					</span>
+					<span ng-if="!isCollapsed">
+						&#9660;
+					</span>
+				</td>
+				<td class="bold nowrap" ng-bind="ext.data.name"/>
+				<td class="center nowrap" ng-class="{'bold': ext.usedIn.length > 0}" ng-bind="ext.usedIn.length"/>
+				<td class="nowrap" ng-bind="ext.id"/>
+				<td class="nowrap" ng-bind="ext.data.author"/>
+				<td class="right nowrap" ng-bind="ext.data.version"/>
+				<td class="ellipsis" style="overflow:hidden;max-width: 300px;" ng-bind="ext.data.description" title="{{ext.data.description}}"/>
+			</tr>
+			<tr class="usage pointer" qva-activate="toggleCollapse();" ng-if="!isCollapsed">
+				<td colspan="7">
+					<div class="usage-container">
+						<div class="x" qva-activate="toggleCollapse();">x</div>
+						<div ng-if="ext.usedIn.length > 0">
+							<b>"{{ext.data.name}}"</b> is used in the following apps ({{ext.usedIn.length}}):<br/>
+							<ul>
+								<li ng-repeat="app in ext.usedIn">
+									<b>{{app.qTitle}}</b> ({{app.useCount}}x) [<span class="link" qva-activate="openApp(app.qDocId);">open app</span>]
+								</li>
+							</ul>
+						</div>
+						<div ng-if="ext.usedIn.length === 0">
+							<b>"{{ext.data.name}}"</b> is
+							<span class="red-bold">NOT</span> used in any of your apps<br/>
+						</div>
 					</div>
-					<div ng-if="ext.usedIn.length === 0">
-						<b>"{{ext.data.name}}"</b> is
-						<span class="red-bold">NOT</span> used in any of your apps<br/>
-					</div>
-				</div>
-			</td>
-		</tr>
-		</tbody>
-	</table>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
