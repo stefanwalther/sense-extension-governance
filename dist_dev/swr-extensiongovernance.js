@@ -51,7 +51,7 @@ define( [
 						.then( loadingStatus.bind( null, false ) )
 						.then( function () {
 							console.info('apps', $scope.apps);
-							angular.noop();
+							angular.noop(); // console.* will be removed in production, so have something inside the function.
 						});
 				};
 
