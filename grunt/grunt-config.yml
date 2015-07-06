@@ -9,7 +9,7 @@ general:
   ExtensionName:        "Extension Governance"
 
   # Name of the Extension, safe to be used for file-names
-  ExtensionNameSafe:    "ExtensionGovernance"
+  ExtensionNameSafe:    "Extension-Governance"
 
   # Namespace
   ExtensionNamespace:   "swr-"
