@@ -1,0 +1,12 @@
+{
+  "name": "extension-governance",
+  "version": "0.0.0",
+  "homepage": "https://github.com/stefanwalther/sense-extension-governance",
+  "authors": [
+    "Stefan Walther"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "shared-styles": "~0.1.0"
+  }
+}
