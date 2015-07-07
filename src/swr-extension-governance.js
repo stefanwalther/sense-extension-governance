@@ -8,7 +8,7 @@ define( [
 		'./initialproperties',
 		'./lib/js/extensionUtils',
 		'text!./lib/css/style.css',
-		'text!./template.ng.html',
+		'text!./lib/partials/main.ng.html',
 
 		// no return value
 		'./lib/directives/swr-collapse'
@@ -48,11 +48,12 @@ define( [
 						.then( traverseApps )
 						.then( saveInspectedApps )
 						.then( analyzeExtensionUsage )
+						//.then( closeSessionObjects )
 						.then( loadingStatus.bind( null, false ) )
 						.then( function () {
-							console.info('apps', $scope.apps);
+							console.info( 'apps', $scope.apps );
 							angular.noop(); // console.* will be removed in production, so have something inside the function.
-						});
+						} );
 				};
 
 				function loadingStatus ( isLoading ) {
@@ -120,15 +121,21 @@ define( [
 
 					console.info( 'traverseApps', '(' + apps.length + ')' );
 
-					return $q.all( _.map( apps, function ( app ) {
-						var deferred = $q.defer();
+					console.log('traverseApps', apps);
+					return $q.all( apps.map( function ( app ) {
 
+						var deferred = $q.defer();
+						console.log('app', app);
 						processApp( app )
 							.then( function ( processedApp ) {
-								//console.log( '--app processed', processedApp );
-								app.missingExtensions = [];
-								app.usedExtensions = [];
+								console.log( '--app processed', processedApp );
+								app.missingExtensions = []; 	// Initialize the array
+								app.usedExtensions = []; 		// Initialize the array
 								deferred.resolve( app );
+							} )
+							.catch( function ( reply ) {
+								console.error( 'Error in processApp', reply );
+								deferred.resolve( /*reply*/ );
 							} );
 
 						return deferred.promise;
@@ -143,9 +150,10 @@ define( [
 				 * @returns {*|promise}
 				 */
 				function processApp ( app ) {
-					var deferred = $q.defer();
+					var def = $q.defer();
 
-					//console.log( 'app.qDocId', app.qDocId );
+					console.log( '>> processApp >> app.qDocId', app.qDocId );
+					console.log('>> processApp >> qlik', qlik);
 					//console.log( 'qlik.currApp().id', qlik.currApp().id );
 
 					//Todo: Check this on server, not clear how this needs to be handled
@@ -158,7 +166,6 @@ define( [
 						//catch ( ex ) {
 						//	//console.error( 'Error opening app \"' + app.qTitle + '\"', ex );
 						//	if ( currApp ) {
-						//		currApp.close();
 						//	}
 						//	deferred.resolve( app );
 						//}
@@ -169,11 +176,14 @@ define( [
 					}
 					currApp.getAppObjectList( 'sheet', function ( reply ) {
 						app.qAppObjectList = reply.qAppObjectList;
-						if ( !isCurrentApp ) { currApp.close(); }
-						deferred.resolve( app );
+						console.log('processApp >> getAppObjectList >> reply', reply);
+						currApp.destroySessionObject(reply.qInfo.qId ).then( function (  ) {
+							if ( !isCurrentApp ) { currApp.close(); }
+							def.resolve( app );
+						});
 					} );
 
-					return deferred.promise;
+					return def.promise;
 				}
 
 				/**
@@ -361,6 +371,16 @@ define( [
 					return deferred.promise;
 				}
 
+				//function destroyAppSessions( apps ) {
+				//
+				//	var deferred = $q.defer();
+				//
+				//
+				//
+				//	return deferred.promise;
+				//
+				//}
+
 				// ****************************************************************************************
 				// Some silly UI stuff
 				// ****************************************************************************************
@@ -369,14 +389,13 @@ define( [
 					$scope.selectedTab = tab;
 				};
 				$scope.openApp = function ( qDocId ) {
-					location.href = '/sense/app/' + encodeURIComponent(qDocId);
+					location.href = '/sense/app/' + encodeURIComponent( qDocId );
 				};
 
 				// ****************************************************************************************
 				// Initialization
 				// ****************************************************************************************
 				$scope.init();
-
 
 			}
 			]

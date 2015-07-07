@@ -1,10 +1,10 @@
-<div qv-extension class="qv-object-swr-extensionsused">
+<div qv-extension class="qv-object-swr-extension-governance">
 	<div class="extension-container">
 
 		<div ng-if="isLoading" class="loading-indicator-container">
 			<div class="loading-indicator">
 				<b>Analyzing apps ...</b><br/>
-				<img src="/extensions/swr-extensiongovernance/lib/svg/loading-cylon.svg" width="64" height="64"/><br/>
+				<img src="/extensions/swr-extension-governance/lib/svg/loading-cylon.svg" width="64" height="64"/><br/>
 				<span class="loading-status-hint">{{loadingStatusHint}}</span>
 			</div>
 		</div>
@@ -19,9 +19,9 @@
 
 		<div class="content-container">
 
-			<div ng-if="selectedTab === 'installed'" data-ng-include data-src="'/extensions/swr-extensiongovernance/lib/partials/installed.ng.html'"></div>
-			<div ng-if="selectedTab === 'missing'" data-ng-include data-src="'/extensions/swr-extensiongovernance/lib/partials/missing.ng.html'"></div>
-			<div ng-if="selectedTab === 'usage'" data-ng-include data-src="'/extensions/swr-extensiongovernance/lib/partials/usage.ng.html'"></div>
+			<div ng-if="selectedTab === 'installed'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/installed.ng.html'"></div>
+			<div ng-if="selectedTab === 'missing'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/missing.ng.html'"></div>
+			<div ng-if="selectedTab === 'usage'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/usage.ng.html'"></div>
 
 		</div>
 
