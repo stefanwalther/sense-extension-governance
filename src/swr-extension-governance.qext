@@ -3,7 +3,7 @@
 	"description" : "Analyze usage of Qlik Sense visualization extensions across your entire environment.",
 	"icon" : "extension",
 	"type" : "visualization",
-	"version": "@@version",
+	"version": "@@pkg.version",
 	"preview" : "swr-extension-governance.png",
 	"author": "Stefan Walther"
 }

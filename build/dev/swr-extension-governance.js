@@ -166,7 +166,6 @@ define( [
 						//catch ( ex ) {
 						//	//console.error( 'Error opening app \"' + app.qTitle + '\"', ex );
 						//	if ( currApp ) {
-						//		currApp.close();
 						//	}
 						//	deferred.resolve( app );
 						//}

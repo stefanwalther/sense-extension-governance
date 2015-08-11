@@ -1,0 +1,13 @@
+initialproperties.js;
+lib/css/style.css;
+lib/directives/swr-collapse.js;
+lib/js/extensionUtils.js;
+lib/partials/installed.ng.html;
+lib/partials/main.ng.html;
+lib/partials/missing.ng.html;
+lib/partials/usage.ng.html;
+lib/svg/loading-cylon.svg;
+properties.js;
+swr-extension-governance.js;
+swr-extension-governance.png;
+swr-extension-governance.qext
