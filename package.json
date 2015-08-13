@@ -1,7 +1,7 @@
 {
   "name": "sense-extension-governance",
   "description": "Analyze usage of Qlik Sense visualization extensions across your entire environment.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/stefanwalther/sense-extension-governance",
   "author": {
     "name": "Stefan Walther",

@@ -7,7 +7,7 @@ define( [
 		'./properties',
 		'./initialproperties',
 		'./lib/js/extensionUtils',
-		'text!./lib/css/style.css',
+		'text!./lib/css/main.css',
 		'text!./lib/partials/main.ng.html',
 
 		// no return value
