@@ -5,19 +5,19 @@
 	</eui-note>
 
 	<div class="tbl-details-container">
-		<table class="tbl-details">
+		<table class="tbl-details table" eui-ts-wrapper>
 			<thead>
 			<tr>
 				<th style="width:15px;">Usage</th>
-				<th class="left">Name</th>
-				<th class="center nowrap">Usage count</th>
-				<th class="left">Id</th>
-				<th class="left">Author</th>
-				<th class="right">Version</th>
-				<th class="center">Description</th>
+				<th ts-criteria="data.name|lowercase" ts-default class="left">Name</th>
+				<th ts-criteria="usedIn.length" class="center nowrap" style="min-width:100px;">Usage count</th>
+				<th ts-criteria="id" class="left">Id</th>
+				<th ts-criteria="data.author|lowercase" class="left">Author</th>
+				<th ts-criteria="data.version" class="center" style="min-width:70px;">Version</th>
+				<th ts-criteria="data.description" class="center">Description</th>
 			</tr>
 			</thead>
-			<tbody swr-collapse ng-repeat="ext in installedExtensions track by $index">
+			<tbody eui-collapse ng-repeat="ext in installedExtensions track by $index" ts-repeat>
 			<tr class="main pointer" qva-activate="toggleCollapse();">
 				<td class="arrow center">
 					<span ng-if="isCollapsed" qva-activate="toggleCollapse();">
@@ -27,12 +27,12 @@
 						&#9660;
 					</span>
 				</td>
-				<td class="bold nowrap" ng-bind="ext.data.name"/>
+				<td style="max-width:150px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;" class="bold nowrap" ng-bind="ext.data.name" ng-attr-title="ext.data.name"/>
 				<td class="center nowrap" ng-class="{'bold': ext.usedIn.length > 0}" ng-bind="ext.usedIn.length"/>
-				<td class="nowrap" ng-bind="ext.id"/>
-				<td class="nowrap" ng-bind="ext.data.author"/>
+				<td style="max-width:150px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;" ng-bind="ext.id"  ng-attr-title="ext.id"/>
+				<td style="max-width:150px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;" class="nowrap" ng-bind="ext.data.author" ng-attr-title="ext.data.author"/>
 				<td class="right nowrap" ng-bind="ext.data.version"/>
-				<td class="ellipsis" style="overflow:hidden;max-width: 300px;" ng-bind="ext.data.description" title="{{ext.data.description}}"/>
+				<td style="overflow:hidden;max-width: 300px;" ng-bind="ext.data.description" title="{{ext.data.description}}"/>
 			</tr>
 			<tr class="usage pointer" qva-activate="toggleCollapse();" ng-if="!isCollapsed">
 				<td colspan="7">
@@ -43,12 +43,14 @@
 							<b>"{{ext.data.name}}"</b> is used in the following apps ({{ext.usedIn.length}}):<br/>
 							<ul>
 								<li ng-repeat="app in ext.usedIn">
-									<b>{{app.qTitle}}</b> ({{app.useCount}}x on <span class="inline-title-help" ng-attr-title="{{getSheetUsedTitle(app.sheetsUsed)}}">{{app.sheetsUsed.length}} different sheets</span>)&nbsp;&nbsp;&nbsp;[<span class="link" qva-activate="openApp(app.qDocId);">open app</span>]
+									<b>{{app.qTitle}}</b> ({{app.useCount}}x on
+									<span eui-tooltip tooltip-title="Used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(app.sheetsUsed)}}" class="inline-title-help">{{app.sheetsUsed.length}} different sheets</span>)&nbsp;&nbsp;&nbsp;[<span class="link" qva-activate="openApp(app.qDocId);">open app</span>]
 								</li>
 							</ul>
 						</div>
 						<div ng-if="ext.usedIn.length === 0">
-							<b>"{{ext.data.name}}"</b> is <span class="red-bold">NOT</span> used in any of your apps<br/>
+							<b>"{{ext.data.name}}"</b> is
+							<span class="red-bold">NOT</span> used in any of your apps<br/>
 						</div>
 					</div>
 				</td>

@@ -2,17 +2,17 @@
 <eui-note class="error" closable="false">
 The following extensions are used in some of your apps but are not available on your system.
 </eui-note>
-<div class="tbl-details-container">
+<div class="tbl-details-container" eui-ts-wrapper>
 <table class="tbl-details">
 <thead>
 <tr>
 <th>Usage</th>
-<th>Missing Extension</th>
+<th ts-default ts-criteria="missingExtension">Missing Extension</th>
 <th># Times used</th>
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="missingExtension in missingExtensions track by $index">
+<tr ng-repeat="missingExtension in missingExtensions track by $index" ts-repeat>
 <td class="arrow center missing_arrow_{{$index}}">&#9654;</td>
 <td class="bold red nowrap">{{missingExtension}}</td>
 <td style="width:90%"></td>

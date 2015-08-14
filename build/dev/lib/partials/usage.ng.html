@@ -2,19 +2,19 @@
 <eui-note class="info" closable="false">
 If you want to get some detailed information which of your apps used non-native objects, this is the perfect view for you.
 </eui-note>
-<div class="tbl-details-container">
+<div class="tbl-details-container" eui-ts-wrapper>
 <table class="tbl-details">
 <thead>
 <tr>
 <th style="width:15px">Usage</th>
-<th class="left">App Title</th>
-<th class="center nowrap"># Extensions Used</th>
-<th class="center"># Missing Extensions</th>
-<th>App Id</th>
+<th ts-criteria="qTitle" class="left">App Title</th>
+<th ts-criteria="usedExtensions.length" class="center nowrap" style="min-width:130px"># Extensions Used</th>
+<th ts-default ts-criteria="missingExtensions.length" class="center" style="min-width:140px"># Missing Extensions</th>
+<th ts-criteria="qDocName">App Id</th>
 <th></th>
 </tr>
 </thead>
-<tbody swr-collapse ng-repeat="app in apps track by $index">
+<tbody eui-collapse ng-repeat="app in apps track by $index" ts-repeat>
 <tr class="main pointer" qva-activate="toggleCollapse();">
 <td class="arrow center">
 <span ng-if="isCollapsed" qva-activate="toggleCollapse();">
@@ -24,7 +24,7 @@ If you want to get some detailed information which of your apps used non-native 
 &#9660;
 </span>
 </td>
-<td class="bold left nowrap" ng-bind="app.qTitle"></td>
+<td class="bold left nowrap" ng-bind="app.qTitle" style="max-width:200px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden"></td>
 <td class="center" ng-class="{'bold': app.usedExtensions.length > 0}" ng-bind="app.usedExtensions.length"></td>
 <td class="center" ng-class="{'red bold': app.missingExtensions.length > 0}" ng-bind="app.missingExtensions.length"></td>
 <td class="left" ng-bind="app.qDocName"></td>

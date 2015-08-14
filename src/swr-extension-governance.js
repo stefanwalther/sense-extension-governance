@@ -12,9 +12,10 @@ define( [
 
 		// components
 		'./lib/components/eui-note/eui-note',
+		'./lib/components/eui-collapse/eui-collapse',
+		'./lib/components/eui-tooltip/eui-tooltip',
+		'./lib/components/eui-tablesort/eui-tablesort'
 
-		// no return value
-		'./lib/directives/swr-collapse'
 	],
 	function ( $, _, qlik, angular, $q, props, initProps, extensionUtils, cssContent, ngTemplate ) {
 		'use strict';
@@ -392,7 +393,12 @@ define( [
 					var titleArray = sheetsUsed.map( function ( sheet ) {
 						return sheet.title;
 					} );
-					return titleArray.join( '\n' );
+					var r = '<ul style="margin-left:15px;">';
+						titleArray.forEach( function ( item ) {
+							r += '<li>' + item + '</li>';
+						} );
+					r += '</ul>';
+					return r;
 				};
 
 				// ****************************************************************************************
