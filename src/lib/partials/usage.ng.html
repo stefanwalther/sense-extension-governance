@@ -37,15 +37,15 @@
 					<div class="usage-container">
 						<div ng-if="app.usedExtensions.length > 0">
 							<b>Used visualization extensions:</b>
-							<ul ng-repeat="used in app.usedExtensions track by $index">
+							<ul>
 								<!-- Meta data is already there, so easy to show -->
-								<li>{{used.id}} ({{used.useCount}}x used)</li>
+								<li ng-repeat="used in app.usedExtensions track by $index"><b>{{used.id}}</b> ({{used.useCount}}x used)</li>
 							</ul>
 						</div>
 						<div ng-if="app.missingExtensions.length > 0">
 							<b>Missing visualization extensions:</b>
-							<ul ng-repeat="ext in app.missingExtensions track by $index">
-								<li>{{ext.type}} ({{ext.missingCount}}x missing)</li>
+							<ul>
+								<li ng-repeat="ext in app.missingExtensions track by $index"><b>{{ext.type}}</b> ({{ext.missingCount}}x missing)</li>
 							</ul>
 						</div>
 						<div ng-if="app.usedExtensions.length === 0 && app.missingExtensions.length === 0">
