@@ -1,25 +1,36 @@
 @headerHeight: 50px;
 
+/* components */
+@import "./../components/eui-note/eui-note.less";
+
 .qv-object-swr-extension-governance {
 
 	position: relative;
 	height: 100%;
-	//overflow: auto;
+
+	@import "general.less";
+	@import "swr-tabs.less";
 
 	.extension-container {
-		//overflow: auto;
 		height: 100%;
 		position: relative;
-
 	}
+
 	.content-container {
 		height: ~"calc(100% - 50px)";
 		position: relative;
 	}
 
+	.content-container-tab {
+		height: 100%;
+		position:relative;
+	}
+
 	.content-section {
 		height: 100%;
-		position: relative;
+		//position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.loading-indicator-container {
@@ -28,12 +39,12 @@
 		height: 100%;
 		background-color: #FAFAFA;
 		border-radius: 5px;
-		opacity: 0.9;
+		opacity: 0.8;
 		z-index: 2;
 	}
+
 	@loadingHeight: 80px;
 	.loading-indicator {
-		//width: 50%;
 		height: @loadingHeight;
 		overflow: auto;
 		margin: auto;
@@ -46,47 +57,14 @@
 		overflow: hidden;
 		padding-bottom: calc(@loadingHeight / 2);
 	}
+
 	.loading-status-hint {
 		color: #333;
 	}
 
-	.hidden {
-		display: none;
-	}
-	.left {
-		text-align: left;
-	}
-	.right {
-		text-align: right;
-	}
-	.center {
-		text-align: center;
-	}
-	.bold {
-		font-weight: bold;
-	}
-	.arrow {
-		font-size: 12px;
-		color: #999;
-		cursor: pointer;
-	}
-	.pointer {
-		cursor: pointer;
-	}
-	.nowrap {
-		white-space: nowrap;
-	}
-	.ellipsis {
-		text-overflow: ellipsis;
-	}
-	.red {
-		color: #CE4844;
-	}
-
 	div.tbl-details-container {
+		flex: 1 1 auto;
 		overflow: auto;
-		position: relative;
-		height: ~"calc(100% - 120px)";
 	}
 
 	table.tbl-details {
@@ -129,6 +107,7 @@
 				border-left-width: 5px;
 				border-left-style: solid;
 				border-left-color: #ccc;
+				margin-left: 25px;
 
 				.x {
 					display: none;
@@ -162,57 +141,6 @@
 
 }
 
-.swr-tabs {
 
-	height: @headerHeight;
-	ul {
-		list-style: none;
-		li {
 
-			font-weight: bold;
-			font-size: 16px;
-			cursor: pointer;
-			float: left;
-			padding-left: 10px;
-			padding-right: 10px;
-			padding-bottom: 3px;
-			margin-right: 5px;
 
-			&:hover {
-				border-bottom-style: solid;
-				border-bottom-width: 4px;
-				border-bottom-color: #d0d0d0;
-			}
-			&.active {
-				border-bottom-style: solid;
-				border-bottom-width: 4px;
-				border-bottom-color: orange !important;
-
-			}
-		}
-	}
-}
-
-.swr-note {
-	//margin-left: 30px;
-	//margin-right: 40px;
-	//width: ~"calc(100% - 116px)";
-	margin-bottom: 20px;
-	border-color: #eee;
-	border-style: solid;
-	border-width: 1px;
-	padding: 20px;
-	background-color: #FDFDFD;
-	border-radius: 3px;
-	font-size: 1.1em;
-
-	border-left-width: 5px;
-	border-left-style: solid;
-
-	&.info {
-		border-left-color: #5BC0DE;
-	}
-	&.error {
-		border-left-color: #CE4844;
-	}
-}

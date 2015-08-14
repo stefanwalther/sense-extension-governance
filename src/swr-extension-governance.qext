@@ -1,6 +1,6 @@
 {
 	"name" : "Extension Governance",
-	"description" : "Analyze usage of Qlik Sense visualization extensions across your entire environment.",
+	"description" : "@@pkg.description",
 	"icon" : "extension",
 	"type" : "visualization",
 	"version": "@@pkg.version",

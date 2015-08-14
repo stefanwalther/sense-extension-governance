@@ -6,9 +6,12 @@ define( [
 		'ng!$q',
 		'./properties',
 		'./initialproperties',
-		'./lib/js/extensionUtils',
+		'./lib/js/extUtils',
 		'text!./lib/css/main.css',
 		'text!./lib/partials/main.ng.html',
+
+		// components
+		'./lib/components/eui-note/eui-note',
 
 		// no return value
 		'./lib/directives/swr-collapse'
@@ -51,15 +54,16 @@ define( [
 						//.then( closeSessionObjects )
 						.then( loadingStatus.bind( null, false ) )
 						.then( function () {
-							console.info( 'apps', $scope.apps );
+							//console.info( 'apps', $scope.apps );
+							//console.info( 'installedExtensions', $scope.installedExtensions );
 							angular.noop(); // console.* will be removed in production, so have something inside the function.
 						} );
 				};
 
+				//Todo: should use $timeout instead
 				function loadingStatus ( isLoading ) {
 					var deferred = $q.defer();
 					setTimeout( function () {
-						console.info( 'loadingIndicator', isLoading );
 						$scope.isLoading = isLoading;
 						if ( !isLoading ) { $scope.loadingStatusHint = '';}
 						deferred.resolve( isLoading );
@@ -101,8 +105,6 @@ define( [
 
 					$scope.loadingStatusHint = 'Loading apps ... ';
 
-					console.info( 'getApps' );
-
 					var deferred = $q.defer();
 					qlik.getAppList( function ( apps ) {
 						deferred.resolve( apps );
@@ -119,22 +121,22 @@ define( [
 
 					$scope.loadingStatusHint = 'Analyze apps ...';
 
-					console.info( 'traverseApps', '(' + apps.length + ')' );
+					//console.info( 'traverseApps', '(' + apps.length + ')' );
+					//console.log( 'traverseApps', apps );
 
-					console.log('traverseApps', apps);
 					return $q.all( apps.map( function ( app ) {
 
 						var deferred = $q.defer();
-						console.log('app', app);
+						//console.log( 'app', app );
 						processApp( app )
 							.then( function ( processedApp ) {
-								console.log( '--app processed', processedApp );
+								//console.log( '--app processed', processedApp );
 								app.missingExtensions = []; 	// Initialize the array
 								app.usedExtensions = []; 		// Initialize the array
 								deferred.resolve( app );
 							} )
 							.catch( function ( reply ) {
-								console.error( 'Error in processApp', reply );
+								//console.error( 'Error in processApp', reply );
 								deferred.resolve( /*reply*/ );
 							} );
 
@@ -152,8 +154,8 @@ define( [
 				function processApp ( app ) {
 					var def = $q.defer();
 
-					console.log( '>> processApp >> app.qDocId', app.qDocId );
-					console.log('>> processApp >> qlik', qlik);
+					//console.log( '>> processApp >> app.qDocId', app.qDocId );
+					//console.log( '>> processApp >> qlik', qlik );
 					//console.log( 'qlik.currApp().id', qlik.currApp().id );
 
 					//Todo: Check this on server, not clear how this needs to be handled
@@ -176,11 +178,11 @@ define( [
 					}
 					currApp.getAppObjectList( 'sheet', function ( reply ) {
 						app.qAppObjectList = reply.qAppObjectList;
-						console.log('processApp >> getAppObjectList >> reply', reply);
-						currApp.destroySessionObject(reply.qInfo.qId ).then( function (  ) {
+						//console.log( 'processApp >> getAppObjectList >> reply', reply );
+						currApp.destroySessionObject( reply.qInfo.qId ).then( function () {
 							if ( !isCurrentApp ) { currApp.close(); }
 							def.resolve( app );
-						});
+						} );
 					} );
 
 					return def.promise;
@@ -208,7 +210,7 @@ define( [
 
 										// Extension is found, so add the usage to the extensions
 										if ( installedExt ) {
-											addExtensionUsage( installedExt, app );
+											addExtensionUsage( installedExt, app, sheet );
 											addUsedExtension( app, installedExt );
 										} else {
 											// Extension is not found
@@ -227,23 +229,35 @@ define( [
 
 				/**
 				 * Add the usage of the extension to the list of extensions
+				 *
 				 * @param ext
 				 * @param app
 				 */
-				function addExtensionUsage ( ext, app ) {
+				function addExtensionUsage ( ext, app, sheet ) {
 
 					var appMeta = {
 						qDocId: app.qDocId,
 						qTitle: app.qTitle,
 						qDocName: app.qDocName,
 						qMeta: app.qMeta,
-						useCount: 1
+						useCount: 1,
+						sheetsUsed: []
 					};
 
 					if ( !_.findWhere( ext.usedIn, {qDocId: appMeta.qDocId} ) ) {
 						ext.usedIn.push( appMeta );
 					} else {
-						_.findWhere( ext.usedIn, {qDocId: appMeta.qDocId} ).useCount++;
+						// Increase the usage count
+						_.findWhere( ext.usedIn, {qDocId: app.qDocId} ).useCount++;
+					}
+
+					// Add the sheet
+					if ( !_.findWhere( _.findWhere( ext.usedIn, {qDocId: app.qDocId} ).sheetsUsed, {qId: sheet.qInfo.qId} ) ) {
+						var sh = {
+							qId: sheet.qInfo.qId,
+							title: sheet.qMeta.title
+						};
+						_.findWhere( ext.usedIn, {qDocId: app.qDocId} ).sheetsUsed.push( sh );
 					}
 				}
 
@@ -273,9 +287,6 @@ define( [
 				 * @param ext
 				 */
 				function addUsedExtension ( app, ext ) {
-
-					//console.log( 'addUsedExtension', ext );
-					//console.log( '--addUsedExtension > app', app );
 
 					if ( !_.findWhere( app.usedExtensions, {"id": ext.id} ) ) {
 						app.usedExtensions.push( {
@@ -352,7 +363,6 @@ define( [
 						'treemap',
 						'pivot-table'
 					];
-
 					return _.indexOf( nativeObjects, obj.type ) > -1;
 				}
 
@@ -362,24 +372,11 @@ define( [
 				 * @returns {*|promise}
 				 */
 				function saveInspectedApps ( apps ) {
-
-					console.info( 'save inspected apps' );
-
 					var deferred = $q.defer();
 					$scope.apps = apps;
 					deferred.resolve( apps );
 					return deferred.promise;
 				}
-
-				//function destroyAppSessions( apps ) {
-				//
-				//	var deferred = $q.defer();
-				//
-				//
-				//
-				//	return deferred.promise;
-				//
-				//}
 
 				// ****************************************************************************************
 				// Some silly UI stuff
@@ -391,14 +388,18 @@ define( [
 				$scope.openApp = function ( qDocId ) {
 					location.href = '/sense/app/' + encodeURIComponent( qDocId );
 				};
+				$scope.getSheetUsedTitle = function ( sheetsUsed ) {
+					var titleArray = sheetsUsed.map( function ( sheet ) {
+						return sheet.title;
+					} );
+					return titleArray.join( '\n' );
+				};
 
 				// ****************************************************************************************
 				// Initialization
 				// ****************************************************************************************
 				$scope.init();
-
 			}
 			]
 		};
-	} )
-;
+	} );

@@ -19,9 +19,9 @@
 
 		<div class="content-container">
 
-			<div ng-if="selectedTab === 'installed'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/installed.ng.html'"></div>
-			<div ng-if="selectedTab === 'missing'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/missing.ng.html'"></div>
-			<div ng-if="selectedTab === 'usage'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/usage.ng.html'"></div>
+			<div class="content-container-tab" ng-if="selectedTab === 'installed'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/installed.ng.html'"></div>
+			<div class="content-container-tab"  ng-if="selectedTab === 'missing'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/missing.ng.html'"></div>
+			<div class="content-container-tab"  ng-if="selectedTab === 'usage'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/usage.ng.html'"></div>
 
 		</div>
 

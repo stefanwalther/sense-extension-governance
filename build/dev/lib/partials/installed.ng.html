@@ -1,59 +1,56 @@
-<div class="content-section">
-
-	<div class="swr-note info">
-		The below listed visualization extensions are available on your system.
-	</div>
-
-	<div class="tbl-details-container">
-		<table class="tbl-details">
-			<thead>
-			<tr>
-				<th style="width:15px;">Usage</th>
-				<th class="left">Name</th>
-				<th class="center nowrap">Usage count</th>
-				<th class="left">Id</th>
-				<th class="left">Author</th>
-				<th class="right">Version</th>
-				<th class="center">Description</th>
-			</tr>
-			</thead>
-			<tbody swr-collapse ng-repeat="ext in installedExtensions">
-			<tr class="main pointer" qva-activate="toggleCollapse();">
-				<td class="arrow center">
-					<span ng-if="isCollapsed" qva-activate="toggleCollapse();">
-						&#9654;
-					</span>
-					<span ng-if="!isCollapsed">
-						&#9660;
-					</span>
-				</td>
-				<td class="bold nowrap" ng-bind="ext.data.name"/>
-				<td class="center nowrap" ng-class="{'bold': ext.usedIn.length > 0}" ng-bind="ext.usedIn.length"/>
-				<td class="nowrap" ng-bind="ext.id"/>
-				<td class="nowrap" ng-bind="ext.data.author"/>
-				<td class="right nowrap" ng-bind="ext.data.version"/>
-				<td class="ellipsis" style="overflow:hidden;max-width: 300px;" ng-bind="ext.data.description" title="{{ext.data.description}}"/>
-			</tr>
-			<tr class="usage pointer" qva-activate="toggleCollapse();" ng-if="!isCollapsed">
-				<td colspan="7">
-					<div class="usage-container">
-						<div class="x" qva-activate="toggleCollapse();">x</div>
-						<div ng-if="ext.usedIn.length > 0">
-							<b>"{{ext.data.name}}"</b> is used in the following apps ({{ext.usedIn.length}}):<br/>
-							<ul>
-								<li ng-repeat="app in ext.usedIn">
-									<b>{{app.qTitle}}</b> ({{app.useCount}}x)&nbsp;&nbsp;&nbsp;[<span class="link" qva-activate="openApp(app.qDocId);">open app</span>]
-								</li>
-							</ul>
-						</div>
-						<div ng-if="ext.usedIn.length === 0">
-							<b>"{{ext.data.name}}"</b> is
-							<span class="red-bold">NOT</span> used in any of your apps<br/>
-						</div>
-					</div>
-				</td>
-			</tr>
-			</tbody>
-		</table>
-	</div>
+<div class="content-section" ng-init="noteVisible = true;">
+<eui-note class="info" closable="false">
+The below listed visualization extensions are available on your system.
+</eui-note>
+<div class="tbl-details-container">
+<table class="tbl-details">
+<thead>
+<tr>
+<th style="width:15px">Usage</th>
+<th class="left">Name</th>
+<th class="center nowrap">Usage count</th>
+<th class="left">Id</th>
+<th class="left">Author</th>
+<th class="right">Version</th>
+<th class="center">Description</th>
+</tr>
+</thead>
+<tbody swr-collapse ng-repeat="ext in installedExtensions track by $index">
+<tr class="main pointer" qva-activate="toggleCollapse();">
+<td class="arrow center">
+<span ng-if="isCollapsed" qva-activate="toggleCollapse();">
+&#9654;
+</span>
+<span ng-if="!isCollapsed">
+&#9660;
+</span>
+</td>
+<td class="bold nowrap" ng-bind="ext.data.name">
+<td class="center nowrap" ng-class="{'bold': ext.usedIn.length > 0}" ng-bind="ext.usedIn.length">
+<td class="nowrap" ng-bind="ext.id">
+<td class="nowrap" ng-bind="ext.data.author">
+<td class="right nowrap" ng-bind="ext.data.version">
+<td class="ellipsis" style="overflow:hidden;max-width: 300px" ng-bind="ext.data.description" title="{{ext.data.description}}">
+</tr>
+<tr class="usage pointer" qva-activate="toggleCollapse();" ng-if="!isCollapsed">
+<td colspan="7">
+<div class="usage-container">
+<div class="x" qva-activate="toggleCollapse();">x</div>
+<div ng-if="ext.usedIn.length > 0">
+<b>"{{ext.data.name}}"</b> is used in the following apps ({{ext.usedIn.length}}):<br>
+<ul>
+<li ng-repeat="app in ext.usedIn">
+<b>{{app.qTitle}}</b> ({{app.useCount}}x on <span class="inline-title-help" ng-attr-title="{{getSheetUsedTitle(app.sheetsUsed)}}">{{app.sheetsUsed.length}} different sheets</span>)&nbsp;&nbsp;&nbsp;[<span class="link" qva-activate="openApp(app.qDocId);">open app</span>]
+</li>
+</ul>
+</div>
+<div ng-if="ext.usedIn.length === 0">
+<b>"{{ext.data.name}}"</b> is <span class="red-bold">NOT</span> used in any of your apps<br>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>

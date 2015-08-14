@@ -1,3 +1,4 @@
+/*global define*/
 define( [], function () {
 	'use strict';
 
@@ -16,7 +17,6 @@ define( [], function () {
 		component: "accordion",
 		items: {
 			appearance: appearancePanel
-
 		}
 	};
 

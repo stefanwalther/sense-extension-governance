@@ -1,7 +1,9 @@
 <div class="content-section">
-	<div class="swr-note error">
+
+	<eui-note class="error" closable="false">
 		The following extensions are used in some of your apps but are not available on your system.
-	</div>
+	</eui-note>
+
 	<div class="tbl-details-container">
 		<table class="tbl-details">
 			<thead>
@@ -12,7 +14,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="missingExtension in missingExtensions">
+			<tr ng-repeat="missingExtension in missingExtensions track by $index">
 				<td class="arrow center missing_arrow_{{$index}}">&#9654;</td>
 				<td class="bold red nowrap">{{missingExtension}}</td>
 				<td style="width:90%;"></td>

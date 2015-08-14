@@ -1,7 +1,9 @@
 <div class="content-section">
-	<div class="swr-note">
+
+	<eui-note class="info" closable="false">
 		If you want to get some detailed information which of your apps used non-native objects, this is the perfect view for you.
-	</div>
+	</eui-note>
+
 	<div class="tbl-details-container">
 		<table class="tbl-details">
 			<thead>
@@ -14,7 +16,7 @@
 				<th></th>
 			</tr>
 			</thead>
-			<tbody swr-collapse ng-repeat="app in apps">
+			<tbody swr-collapse ng-repeat="app in apps track by $index">
 			<tr class="main pointer" qva-activate="toggleCollapse();">
 				<td class="arrow center">
 					<span ng-if="isCollapsed" qva-activate="toggleCollapse();">

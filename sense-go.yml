@@ -1,0 +1,5 @@
+packageName: "sense-extension-governance"
+wbfolder:
+  enabled: false
+npm:
+  publish: false
