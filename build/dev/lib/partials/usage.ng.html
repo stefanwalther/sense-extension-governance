@@ -33,7 +33,22 @@ If you want to get some detailed information which of your apps used non-native 
 <tr class="usage pointer" qva-activate="toggleCollapse();" ng-if="!isCollapsed">
 <td colspan="7">
 <div class="usage-container">
-Installed ...
+<div ng-if="app.usedExtensions.length > 0">
+<b>Used visualization extensions:</b>
+<ul ng-repeat="used in app.usedExtensions track by $index">
+
+<li>{{used.id}} ({{used.useCount}}x used)</li>
+</ul>
+</div>
+<div ng-if="app.missingExtensions.length > 0">
+<b>Missing visualization extensions:</b>
+<ul ng-repeat="ext in app.missingExtensions track by $index">
+<li>{{ext.type}} ({{ext.missingCount}}x missing)</li>
+</ul>
+</div>
+<div ng-if="app.usedExtensions.length === 0 && app.missingExtensions.length === 0">
+No visualization extensions used.
+</div>
 </div>
 </td>
 </tr>
