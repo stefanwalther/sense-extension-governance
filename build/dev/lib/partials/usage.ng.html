@@ -8,13 +8,13 @@ If you want to get some detailed information which of your apps used non-native 
 <tr>
 <th style="width:15px">Usage</th>
 <th ts-criteria="qTitle" class="left">App Title</th>
-<th ts-criteria="usedExtensions.length" class="center nowrap" style="min-width:130px"># Extensions Used</th>
-<th ts-default ts-criteria="missingExtensions.length" class="center" style="min-width:140px"># Missing Extensions</th>
+<th ts-default="descending" ts-criteria="usedExtensions.length" class="center nowrap" style="min-width:130px"># Extensions Used</th>
+<th ts-criteria="missingExtensions.length" class="center" style="min-width:140px"># Missing Extensions</th>
 <th ts-criteria="qDocName">App Id</th>
 <th></th>
 </tr>
 </thead>
-<tbody eui-collapse ng-repeat="app in apps track by $index" ts-repeat>
+<tbody eui-collapse ng-repeat="app in vm.apps track by $index" ts-repeat>
 <tr class="main pointer" qva-activate="toggleCollapse();">
 <td class="arrow center">
 <span ng-if="isCollapsed" qva-activate="toggleCollapse();">
@@ -34,16 +34,16 @@ If you want to get some detailed information which of your apps used non-native 
 <td colspan="7">
 <div class="usage-container">
 <div ng-if="app.usedExtensions.length > 0">
-<b>Used visualization extensions:</b>
-<ul>
+App <b>"{{app.qTitle}}"</b> uses the following visualization extensions ({{app.usedExtensions.length}}):
+<ul style="margin-bottom:15px">
 
-<li ng-repeat="used in app.usedExtensions track by $index"><b>{{used.id}}</b> ({{used.useCount}}x used)</li>
+<li ng-repeat="used in app.usedExtensions track by $index"><b>{{used.id}}</b> ({{used.useCount}}x used on <span eui-tooltip tooltip-title="Used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(used.usedInSheets)}}" class="inline-title-help">{{used.usedInSheets.length}} different sheets</span>)</li>
 </ul>
 </div>
 <div ng-if="app.missingExtensions.length > 0">
-<b>Missing visualization extensions:</b>
+App <b>"{{app.qTitle}}"</b> uses the following <span class="red bold">not available</span> visualization extensions ({{app.missingExtensions.length}}):
 <ul>
-<li ng-repeat="ext in app.missingExtensions track by $index"><b>{{ext.type}}</b> ({{ext.missingCount}}x missing)</li>
+<li ng-repeat="ext in app.missingExtensions track by $index"><b>{{ext.type}}</b> ({{ext.missingCount}}x missing on <span eui-tooltip tooltip-title="Used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(missingOnSheets.missingOnSheets)}}" class="inline-title-help">{{ext.missingOnSheets.length}} different sheets</span>)</li>
 </ul>
 </div>
 <div ng-if="app.usedExtensions.length === 0 && app.missingExtensions.length === 0">

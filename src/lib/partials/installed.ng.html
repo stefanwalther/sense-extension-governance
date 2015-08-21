@@ -9,7 +9,7 @@
 			<thead>
 			<tr>
 				<th style="width:15px;">Usage</th>
-				<th ts-criteria="data.name|lowercase" ts-default class="left">Name</th>
+				<th ts-criteria="data.name|lowercase" ts-default class="left">Extension name</th>
 				<th ts-criteria="usedIn.length" class="center nowrap" style="min-width:100px;">Usage count</th>
 				<th ts-criteria="id" class="left">Id</th>
 				<th ts-criteria="data.author|lowercase" class="left">Author</th>
@@ -17,7 +17,7 @@
 				<th ts-criteria="data.description" class="center">Description</th>
 			</tr>
 			</thead>
-			<tbody eui-collapse ng-repeat="ext in installedExtensions track by $index" ts-repeat>
+			<tbody eui-collapse ng-repeat="ext in vm.installedExtensions track by $index | filter: installedFilter" ts-repeat>
 			<tr class="main pointer" qva-activate="toggleCollapse();">
 				<td class="arrow center">
 					<span ng-if="isCollapsed" qva-activate="toggleCollapse();">
@@ -40,7 +40,7 @@
 						<div class="x" qva-activate="toggleCollapse();">x</div>
 
 						<div ng-if="ext.usedIn.length > 0">
-							<b>"{{ext.data.name}}"</b> is used in the following apps ({{ext.usedIn.length}}):<br/>
+							The visualization extension <b>"{{ext.data.name}}"</b> is used in the following apps ({{ext.usedIn.length}}):<br/>
 							<ul>
 								<li ng-repeat="app in ext.usedIn">
 									<b>{{app.qTitle}}</b> ({{app.useCount}}x on
@@ -49,7 +49,7 @@
 							</ul>
 						</div>
 						<div ng-if="ext.usedIn.length === 0">
-							<b>"{{ext.data.name}}"</b> is
+							The visualization extension <b>"{{ext.data.name}}"</b> is
 							<span class="red-bold">NOT</span> used in any of your apps.<br/>
 						</div>
 					</div>

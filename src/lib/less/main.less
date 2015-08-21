@@ -1,9 +1,9 @@
 @headerHeight: 50px;
 
 /* components */
-@import "./../components/eui-note/eui-note.less";
-@import "./../components/eui-tooltip/eui-tooltip.less";
-@import "./../components/eui-tablesort/eui-tablesort.less";
+@import "/extensions/swr-extension-governance/lib/components/eui-note/eui-note.css";
+@import "/extensions/swr-extension-governance/lib/components/eui-tooltip/eui-tooltip.css";
+@import "/extensions/swr-extension-governance/lib/components/eui-tablesort/eui-tablesort.css";
 
 .qv-object-swr-extension-governance {
 
@@ -12,6 +12,20 @@
 
 	@import "general.less";
 	@import "swr-tabs.less";
+
+	.filter-box-container {
+		.filter-box {
+			padding-left: 7px;
+			padding-right: 7px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+			float: right;
+			border-radius: 5px;
+			border-style: solid;
+			border-width: 1px;
+			border-color: #efefef;
+		}
+	}
 
 	.extension-container {
 		height: 100%;

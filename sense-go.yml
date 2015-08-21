@@ -1,5 +1,15 @@
 packageName: "sense-extension-governance"
 wbfolder:
-  enabled: false
+  enabled: false  # Doesn't make much sense to have this enabled in Qlik Dev Hub
 npm:
-  publish: false
+  publish: false  # Should be false until published
+import:
+  files:
+    - ["./node_modules/sense-angular-directives/dist/eui-collapse/eui-collapse.js", "./.tmp/lib/components/eui-collapse"]
+    - ["./node_modules/sense-angular-directives/dist/eui-note/eui-note.js", "./.tmp/lib/components/eui-note"]
+    - ["./node_modules/sense-angular-directives/dist/eui-note/eui-note.css", "./.tmp/lib/components/eui-note"]
+    - ["./node_modules/sense-angular-directives/dist/eui-note/eui-note.ng.html", "./.tmp/lib/components/eui-note"]
+    - ["./node_modules/sense-angular-directives/dist/eui-tablesort/eui-tablesort.js", "./.tmp/lib/components/eui-tablesort"]
+    - ["./node_modules/sense-angular-directives/dist/eui-tablesort/eui-tablesort.css", "./.tmp/lib/components/eui-tablesort"]
+    - ["./node_modules/sense-angular-directives/dist/eui-tooltip/eui-tooltip.js", "./.tmp/lib/components/eui-tooltip"]
+    - ["./node_modules/sense-angular-directives/dist/eui-tooltip/eui-tooltip.css", "./.tmp/lib/components/eui-tooltip"]

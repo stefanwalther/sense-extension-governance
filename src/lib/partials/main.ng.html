@@ -1,11 +1,11 @@
 <div qv-extension class="qv-object-swr-extension-governance">
 	<div class="extension-container">
 
-		<div ng-if="isLoading" class="loading-indicator-container">
+		<div ng-if="vm.isLoading" class="loading-indicator-container">
 			<div class="loading-indicator">
 				<b>Analyzing apps ...</b><br/>
 				<img src="/extensions/swr-extension-governance/lib/svg/loading-cylon.svg" width="64" height="64"/><br/>
-				<span class="loading-status-hint">{{loadingStatusHint}}</span>
+				<span class="loading-status-hint">{{vm.loadingStatusHint}}</span>
 			</div>
 		</div>
 
@@ -15,18 +15,17 @@
 				<li ng-class="{'active': selectedTab === 'usage'}" qva-activate="selectTab('usage');">Extension Usage</li>
 				<li ng-class="{'active': selectedTab === 'missing'}" qva-activate="selectTab('missing');">Missing Extensions</li>
 			</ul>
+			<!--<div class="filter-box-container">-->
+				<!--<input type="text" ng-model="resultsFilter" class="filter-box"/>-->
+			<!--</div>-->
 		</div>
 
 		<div class="content-container">
 
 			<div class="content-container-tab" ng-if="selectedTab === 'installed'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/installed.ng.html'"></div>
-			<div class="content-container-tab"  ng-if="selectedTab === 'missing'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/missing.ng.html'"></div>
-			<div class="content-container-tab"  ng-if="selectedTab === 'usage'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/usage.ng.html'"></div>
+			<div class="content-container-tab" ng-if="selectedTab === 'missing'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/missing.ng.html'"></div>
+			<div class="content-container-tab" ng-if="selectedTab === 'usage'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/usage.ng.html'"></div>
 
 		</div>
-
-		<pre ng-if="1===2" ng-bind="installedExtensions | json"></pre>
-		<pre ng-if="1===1" ng-bind="apps | json"></pre>
-
 	</div>
 </div>

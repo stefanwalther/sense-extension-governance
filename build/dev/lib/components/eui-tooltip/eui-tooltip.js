@@ -28,7 +28,7 @@ define( [
 				'scope': {},
 				'link': function linkingFunction ( $scope, element, attr ) {
 
-					console.log('bla');
+					console.log( 'bla' );
 
 					var initialized = false
 						, thisElement = angular.element( element[0] )
@@ -169,7 +169,7 @@ define( [
 					};
 
 					function onMouseEnterAndMouseOver () {
-						console.log('onMouseEnterAndMouseOver');
+						console.log( 'onMouseEnterAndMouseOver' );
 						if ( !lazyMode || !initialized ) {
 
 							initialized = true;
