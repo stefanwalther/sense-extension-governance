@@ -12,7 +12,7 @@ The following extensions are used in some of your apps but are not available on 
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="missingExtension in missingExtensions track by $index" ts-repeat>
+<tr ng-repeat="missingExtension in vm.missingExtensions track by $index" ts-repeat>
 <td class="arrow center missing_arrow_{{$index}}">&#9654;</td>
 <td class="bold red nowrap">{{missingExtension}}</td>
 <td style="width:90%"></td>

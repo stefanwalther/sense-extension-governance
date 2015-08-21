@@ -36,14 +36,13 @@ If you want to get some detailed information which of your apps used non-native 
 <div ng-if="app.usedExtensions.length > 0">
 App <b>"{{app.qTitle}}"</b> uses the following visualization extensions ({{app.usedExtensions.length}}):
 <ul style="margin-bottom:15px">
-
-<li ng-repeat="used in app.usedExtensions track by $index"><b>{{used.id}}</b> ({{used.useCount}}x used on <span eui-tooltip tooltip-title="Used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(used.usedInSheets)}}" class="inline-title-help">{{used.usedInSheets.length}} different sheets</span>)</li>
+<li ng-repeat="used in app.usedExtensions track by $index"><b>{{used.id}}</b> ({{used.useCount}}x used on <span eui-tooltip tooltip-title="&quot;{{ext.type}}&quot; is used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(used.usedInSheets)}}" class="inline-title-help">{{used.usedInSheets.length}} different sheets</span>)</li>
 </ul>
 </div>
 <div ng-if="app.missingExtensions.length > 0">
 App <b>"{{app.qTitle}}"</b> uses the following <span class="red bold">not available</span> visualization extensions ({{app.missingExtensions.length}}):
 <ul>
-<li ng-repeat="ext in app.missingExtensions track by $index"><b>{{ext.type}}</b> ({{ext.missingCount}}x missing on <span eui-tooltip tooltip-title="Used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(missingOnSheets.missingOnSheets)}}" class="inline-title-help">{{ext.missingOnSheets.length}} different sheets</span>)</li>
+<li ng-repeat="ext in app.missingExtensions track by $index"><b>{{ext.type}}</b> ({{ext.missingCount}}x missing on <span eui-tooltip tooltip-title="&quot;{{ext.type}}&quot; is used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(ext.missingOnSheets)}}" class="inline-title-help">{{ext.missingOnSheets.length}} different sheets</span>)</li>
 </ul>
 </div>
 <div ng-if="app.usedExtensions.length === 0 && app.missingExtensions.length === 0">

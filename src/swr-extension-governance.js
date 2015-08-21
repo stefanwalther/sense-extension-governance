@@ -20,7 +20,7 @@ define( [
 	function ( qvangular, props, initProps, extensionUtils, cssContent, ngTemplate ) {
 		'use strict';
 
-		var egService = qvangular.getService( "swrExtensionGovernanceService" );
+		var egService = qvangular.getService( 'swrExtensionGovernanceService' );
 		egService.init();
 		extensionUtils.addStyleToHeader( cssContent );
 
@@ -35,7 +35,7 @@ define( [
 				$scope.vm = egService.vm;
 
 				// ****************************************************************************************
-				// Some silly UI stuff
+				// Some UI stuff
 				// ****************************************************************************************
 				$scope.selectedTab = 'installed';
 				$scope.selectTab = function ( tab ) {
@@ -48,7 +48,7 @@ define( [
 					var titleArray = sheetsUsed.map( function ( sheet ) {
 						return sheet.title;
 					} );
-					var r = '<ul style="margin-left:15px;">';
+					var r = '<ul style="margin-left:15px;margin-bottom:15px;">';
 					titleArray.forEach( function ( item ) {
 						r += '<li>' + item + '</li>';
 					} );
