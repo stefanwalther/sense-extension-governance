@@ -38,7 +38,7 @@
 						<div ng-if="app.usedExtensions.length > 0">
 							App <b>"{{app.qTitle}}"</b> uses the following visualization extensions ({{app.usedExtensions.length}}):
 							<ul style="margin-bottom:15px;">
-								<li ng-repeat="used in app.usedExtensions track by $index"><b>{{used.id}}</b> ({{used.useCount}}x used on <span eui-tooltip tooltip-title="&quot;{{ext.type}}&quot; is used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(used.usedInSheets)}}" class="inline-title-help">{{used.usedInSheets.length}} different sheets</span>)</li>
+								<li ng-repeat="used in app.usedExtensions track by $index"><b>{{used.id}}</b> ({{used.useCount}}x used on <span eui-tooltip tooltip-title="&quot;{{used.id}}&quot; is used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(used.usedInSheets)}}" class="inline-title-help">{{used.usedInSheets.length}} different sheets</span>)</li>
 							</ul>
 						</div>
 						<div ng-if="app.missingExtensions.length > 0">

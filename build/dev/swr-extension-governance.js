@@ -37,7 +37,7 @@ define( [
 				// ****************************************************************************************
 				// Some UI stuff
 				// ****************************************************************************************
-				$scope.selectedTab = 'installed';
+				$scope.selectedTab = 'summary';
 				$scope.selectTab = function ( tab ) {
 					$scope.selectedTab = tab;
 				};
@@ -54,6 +54,16 @@ define( [
 					} );
 					r += '</ul>';
 					return r;
+				};
+
+				$scope.extensionsWithMissing = function () {
+					var appWithMissing = 0;
+					$scope.vm.apps.forEach( function ( app ) {
+						if (app.missingExtensions.length > 0) {
+							appWithMissing++;
+						}
+					});
+					return appWithMissing;
 				};
 
 				//$scope.installedFilter = function ( item ) {

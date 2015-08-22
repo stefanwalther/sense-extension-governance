@@ -9,18 +9,22 @@
 </div>
 <div class="swr-tabs">
 <ul>
+<li ng-class="{'active': selectedTab === 'summary'}" qva-activate="selectTab('summary');">Summary</li>
 <li ng-class="{'active': selectedTab === 'installed'}" qva-activate="selectTab('installed');">Installed Extensions</li>
 <li ng-class="{'active': selectedTab === 'usage'}" qva-activate="selectTab('usage');">Extension Usage</li>
 <li ng-class="{'active': selectedTab === 'missing'}" qva-activate="selectTab('missing');">Missing Extensions</li>
+<li ng-class="{'active': selectedTab === 'unused'}" qva-activate="selectTab('unused');">Unused Extensions</li>
 </ul>
 
 
 
 </div>
 <div class="content-container">
+<div class="content-container-tab" ng-if="selectedTab === 'summary'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/summary.ng.html'"></div>
 <div class="content-container-tab" ng-if="selectedTab === 'installed'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/installed.ng.html'"></div>
 <div class="content-container-tab" ng-if="selectedTab === 'missing'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/missing.ng.html'"></div>
 <div class="content-container-tab" ng-if="selectedTab === 'usage'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/usage.ng.html'"></div>
+<div class="content-container-tab" ng-if="selectedTab === 'unused'" data-ng-include data-src="'/extensions/swr-extension-governance/lib/partials/unused.ng.html'"></div>
 </div>
 </div>
 </div>
