@@ -1,12 +1,12 @@
 'use strict';
-var gulp = require('gulp');
-var senseGo = require('sense-go');
-var path = require('path' );
+var gulp = require( 'gulp' );
+var senseGo = require( 'sense-go' );
+var path = require( 'path' );
 
-var userConfig = senseGo.loadYml( path.join(__dirname, 'sense-go.yml'));
-senseGo.init( gulp, userConfig,  function (  ) {
+var userConfig = senseGo.loadYml( path.join( __dirname, 'sense-go.yml' ) );
+senseGo.init( gulp, userConfig, function () {
 
-	gulp.task('watch:build', function () {
+	gulp.task( 'watch:build', function () {
 		gulp.watch(
 			['./src/**/*.*'],
 			{
@@ -14,7 +14,7 @@ senseGo.init( gulp, userConfig,  function (  ) {
 				usePolling: true,
 				interval: 50
 			},
-			gulp.series('build'))
-	});
+			gulp.series( 'build' ) )
+	} );
 
-});
+} );
