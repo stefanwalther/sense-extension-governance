@@ -20,9 +20,9 @@ define( [
 	function ( qvangular, props, initProps, extensionUtils, cssContent, ngTemplate ) {
 		'use strict';
 
+		extensionUtils.addStyleToHeader( cssContent, 'swr_extension_governance' );
 		var egService = qvangular.getService( 'swrExtensionGovernanceService' );
 		egService.init();
-		extensionUtils.addStyleToHeader( cssContent );
 
 		return {
 
@@ -37,18 +37,18 @@ define( [
 				// ****************************************************************************************
 				// Some UI stuff
 				// ****************************************************************************************
-				$scope.selectedTab = 'summary';
+				$scope.selectedTab = 'installed';
 				$scope.selectTab = function ( tab ) {
 					$scope.selectedTab = tab;
 				};
 				$scope.openApp = function ( qDocId ) {
-					location.href = '/sense/app/' + encodeURIComponent( qDocId );
+					location.href = '/sense/app/' + encodeURIComponent( qDocId ); //Todo: fix for virtual proxy
 				};
 				$scope.getSheetUsedTitle = function ( sheetsUsed ) {
 					var titleArray = sheetsUsed.map( function ( sheet ) {
 						return sheet.title;
 					} );
-					var r = '<ul style="margin-left:15px;margin-bottom:15px;">';
+					var r = '<ul style="margin-left:15px;margin-bottom:15px;">'; //Todo: Move style to CSS file
 					titleArray.forEach( function ( item ) {
 						r += '<li>' + item + '</li>';
 					} );
