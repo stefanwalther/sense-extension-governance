@@ -56,6 +56,10 @@ define( [
 					return r;
 				};
 
+				/**
+				 * Returns the amount of extensions which are missing in one ore more apps.
+				 * @returns {number}
+				 */
 				$scope.extensionsWithMissing = function () {
 					var appWithMissing = 0;
 					$scope.vm.apps.forEach( function ( app ) {

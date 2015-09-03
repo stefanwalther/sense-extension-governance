@@ -8,14 +8,35 @@ The following extensions are used in some of your apps but are not available on 
 <tr>
 <th>Usage</th>
 <th ts-default ts-criteria="missingExtension">Missing Extension</th>
-<th># Times used</th>
+<th class="center" ts-criteria="missingExtension.usageCount"># Times used</th>
 </tr>
 </thead>
-<tbody>
-<tr ng-repeat="missingExtension in vm.missingExtensions track by $index" ts-repeat>
-<td class="arrow center missing_arrow_{{$index}}">&#9654;</td>
-<td class="bold red nowrap">{{missingExtension}}</td>
-<td style="width:90%"></td>
+<tbody eui-collapse ng-repeat="missingExtension in vm.missingExtensions track by $index" ts-repeat>
+<tr class="main pointer" qva-activate="toggleCollapse();">
+<td class="arrow center">
+<span ng-if="isCollapsed" qva-activate="toggleCollapse();">
+&#9654;
+</span>
+<span ng-if="!isCollapsed">
+&#9660;
+</span>
+</td>
+<td class="bold red nowrap">{{missingExtension.type}}</td>
+<td style="width:90%">
+{{missingExtension.usageCount}}
+</td>
+</tr>
+<tr class="usage pointer" qva-activate="toggleCollapse();" ng-if="!isCollapsed">
+<td colspan="3">
+<div class="usage-container">
+<div ng-if="missingExtension.apps.length > 0">
+Visualization Extension <b>"{{missingExtension.type}}"</b> is used in the following apps ({{missingExtension.apps.length}}):
+<ul style="margin-bottom:15px">
+<li ng-repeat="used in missingExtension.apps track by $index"><b>{{used.qTitle}}</b> (Used on <span eui-tooltip tooltip-title="&quot;{{missingExtension.type}}&quot; is used on the following sheets:" tooltip-side="right" tooltip-size="small" tooltip-html="{{getSheetUsedTitle(used.sheetsUsed)}}" class="inline-title-help">{{used.sheetsUsed.length}} different sheets</span>)</li>
+</ul>
+</div>
+</div>
+</td>
 </tr>
 </tbody>
 </table>

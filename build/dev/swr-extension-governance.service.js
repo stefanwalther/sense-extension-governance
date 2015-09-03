@@ -13,7 +13,7 @@ define( [
 			   $q ) {
 		'use strict';
 
-		qvangular.service( "swrExtensionGovernanceService", [function () {
+		qvangular.service( "swrExtensionGovernanceService", ['$timeout', function ( $timeout ) {
 			var vm = {};
 
 			var init = function () {
@@ -48,10 +48,9 @@ define( [
 
 			};
 
-			//Todo: should use $timeout instead
 			function setLoadingStatus ( isLoading ) {
 				var deferred = $q.defer();
-				setTimeout( function () {
+				$timeout( function () {
 					vm.isLoading = isLoading;
 					if ( !isLoading ) { vm.loadingStatusHint = '';}
 					deferred.resolve( isLoading );
@@ -238,14 +237,7 @@ define( [
 			 */
 			function addExtensionUsage ( ext, app, sheet ) {
 
-				var appMeta = {
-					qDocId: app.qDocId,
-					qTitle: app.qTitle,
-					qDocName: app.qDocName,
-					qMeta: app.qMeta,
-					useCount: 1,
-					sheetsUsed: []
-				};
+				var appMeta = getAppMeta( app );
 
 				if ( !_.findWhere( ext.usedIn, {qDocId: appMeta.qDocId} ) ) {
 					ext.usedIn.push( appMeta );
@@ -256,11 +248,37 @@ define( [
 
 				// Add the sheet
 				if ( !_.findWhere( _.findWhere( ext.usedIn, {qDocId: app.qDocId} ).sheetsUsed, {qId: sheet.qInfo.qId} ) ) {
-					var sh = {
-						qId: sheet.qInfo.qId,
-						title: sheet.qMeta.title
-					};
-					_.findWhere( ext.usedIn, {qDocId: app.qDocId} ).sheetsUsed.push( sh );
+					var sheetMeta = getSheetMeta( sheet );
+					_.findWhere( ext.usedIn, {qDocId: app.qDocId} ).sheetsUsed.push( sheetMeta );
+				}
+			}
+
+			/**
+			 * Return some needed meta-data for an app.
+			 * @param app
+			 * @returns {{qDocId: (string), qTitle: (string), qDocName: (string), qMeta: *, useCount: number, sheetsUsed: Array}}
+			 */
+			function getAppMeta ( app ) {
+				return {
+					qDocId: app.qDocId,
+					qTitle: app.qTitle,
+					qDocName: app.qDocName,
+					qMeta: app.qMeta,
+					useCount: 1,
+					sheetsUsed: []
+				}
+			}
+
+			/**
+			 * Return some needed meta-data for a sheet.
+			 * @param sheet
+			 * @returns {{qId: (string), title: (string)}}
+			 */
+			function getSheetMeta ( sheet ) {
+				return {
+					qId: sheet.qInfo.qId,
+					title: sheet.qMeta.title,
+					usageCount: 1
 				}
 			}
 
@@ -345,26 +363,31 @@ define( [
 			 */
 			function addMissingExtension ( app, extType, sheet ) {
 
-				// we only know the id/type of the extension, so that's all we can add
-				if ( !_.findWhere( app.missingExtensions, {type: extType} ) ) {
-					app.missingExtensions.push( {type: extType, missingCount: 1, missingOnSheets: []} );
-				} else {
-					_.findWhere( app.missingExtensions, {type: extType} ).missingCount++;
-				}
-
-				// Todo: Extend this
 				// - in which apps, sheets,
-				if ( _.indexOf( vm.missingExtensions, extType ) === -1 ) {
-					vm.missingExtensions.push( extType );
+				var missingExtension = _.findWhere( vm.missingExtensions, {type: extType} );
+				if ( !missingExtension ) {
+					missingExtension = {
+						type: extType,
+						apps: [],
+						usageCount: 1
+					};
+					vm.missingExtensions.push( missingExtension );
+				} else {
+					missingExtension.usageCount ++;
 				}
 
-				// Add where the extensions are missing
-				if ( !_.findWhere( _.findWhere( app.missingExtensions, {type: extType} ).missingOnSheets, {qId: sheet.qInfo.qId} ) ) {
-					var sh = {
-						qId: sheet.qInfo.qId,
-						title: sheet.qMeta.title
-					};
-					_.findWhere( app.missingExtensions, {type: extType} ).missingOnSheets.push( sh );
+				// Add the app
+				if ( !_.findWhere( missingExtension.apps, {"qDocId": app.qDocId} ) ) {
+					missingExtension.apps.push( getAppMeta( app ) );
+				}
+
+				// Add the sheet + usage
+				var missingExtensionApp = _.findWhere( missingExtension.apps, {"qDocId": app.qDocId} );
+				var missingExtensionAppSheet = _.findWhere( missingExtensionApp, "sheetsUsed.qId", sheet.qInfo.qId );
+				if ( !missingExtensionAppSheet ) {
+					missingExtensionApp.sheetsUsed.push( getSheetMeta( sheet ) );
+				} else {
+					missingExtensionAppSheet.usageCount++;
 				}
 			}
 
@@ -392,7 +415,6 @@ define( [
 				];
 				return _.indexOf( nativeObjects, obj.type ) > -1;
 			}
-
 
 			// ****************************************************************************************
 			// Return
