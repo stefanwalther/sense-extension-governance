@@ -1,6 +1,7 @@
 **Qlik Sense Extension Governance** is licensed under the "MIT" license:
 
-## License
+* [License](#license)
+* [External Libraries](#external libraries)
 
 > 
 > The MIT License (MIT)
@@ -24,7 +25,19 @@
 > LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 > SOFTWARE.
-> 
+
+## External Libraries
+
+These external libraries are used within this solution. Many thanks to the authors!
+
+**Extension Preview Image**
+* Name: Picol Icon
+* License: Creative Commons (Attribution-Share Alike 3.0 Unported) (help for licenses)
+* Url: https://www.iconfinder.com/icons/103436/category_settings_icon#size=128
+* Author: PICOL
+---
+
+
 
 
 
