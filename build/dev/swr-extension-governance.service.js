@@ -38,7 +38,7 @@ define( [
 					.then( setLoadingStatus.bind( null, false ) )
 					.then( function () {
 						//console.info( 'apps', vm.apps );
-						console.info( 'installedExtensions', vm.installedExtensions );
+						//console.info( 'installedExtensions', vm.installedExtensions );
 						angular.noop(); // console.* will be removed in production, so have something inside the function.
 					} );
 
@@ -140,6 +140,14 @@ define( [
 				} ) );
 			}
 
+			function isCurrentApp( appData ) {
+				if (appData.qDocId.indexOf('.qvf') > -1) {
+					return (appData.qDocId.replace( '.qvf', '' ) !== qlik.currApp().id);
+				} else {
+					return appData.qDocId === qlik.currApp().id;
+				}
+			}
+
 			/**
 			 * Process a single app:
 			 * - open the app
@@ -154,9 +162,8 @@ define( [
 				//console.log( '>> processApp >> qlik', qlik );
 				//console.log( 'qlik.currApp().id', qlik.currApp().id );
 
-				//Todo: Check this on server, not clear how this needs to be handled
 				var currApp;
-				appData.isCurrentApp = (appData.qDocId.replace( '.qvf', '' ) !== qlik.currApp().id);
+				appData.isCurrentApp = isCurrentApp( appData );
 				if ( appData.isCurrentApp ) {
 					currApp = qlik.openApp( appData.qDocId, {openWithoutData: true} );
 				} else {
