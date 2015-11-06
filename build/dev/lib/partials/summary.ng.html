@@ -1,0 +1,38 @@
+<div class="content-section">
+<div class="cards-container">
+<div class="card">
+<div class="header">Apps & Visualization Extensions</div>
+<div class="content">
+Some stats about your system:
+<ul>
+<li>There are <b>{{vm.apps.length}} apps</b> on your system.</li>
+<li><b>{{vm.installedExtensions.length}} visualization extensions</b> are available. </li>
+<li>{{}} out of {{vm.installedExtensions.length}} visualization extensions are used in one or more apps.</li>
+<li>{{}} visualization extensions are not used at all (and are save to be removed).</li>
+</ul>
+</div>
+</div>
+<div class="card">
+<div class="header">Popular Visualization Extensions</div>
+</div>
+<div class="card">
+<div class="header">Status</div>
+<div class="content" ng-class="{'fine': vm.missingExtensions.length === 0, 'danger': vm.missingExtensions.length > 0}">
+<div ng-if="vm.missingExtensions.length === 0">
+<b>All fine!</b><br>
+All visualization extensions used in your apps are available.
+</div>
+<div ng-if="vm.missingExtensions.length > 0">
+<b>Ooops!</b><br>
+<b>{{extensionsWithMissing()}} apps</b> are <b>missing</b> in total in <b>{{vm.missingExtensions.length}} visualization extensions</b>.
+</div>
+</div>
+</div>
+<div class="card">
+<div class="header">Apps Which Need Your Attention</div>
+<div class="content">
+The following apps need your attention. One or more visualization extensions are used but are not available on your system.
+</div>
+</div>
+</div>
+</div>
