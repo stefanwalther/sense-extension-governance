@@ -17,17 +17,14 @@ define( [
 			var vm = {};
 
 			var init = function () {
-				console.info( 'Initialize egService' );
 				vm.loadingStatusHint = '';
 				vm.apps = [];
 				vm.isLoading = false;
 				vm.missingExtensions = [];
 
-				// Doesn't really help to suppress an error from the engine, the client side error modal will still
-				// be shown
-				qlik.setOnError( function ( error ) {
-					//console.error( error );
-				} );
+				//qlik.setOnError( function ( error ) {
+				//	//window.console.error( error );
+				//} );
 
 				// First get the list of installed extensions, then we can match them
 				// later on with the used ones ...
@@ -38,11 +35,10 @@ define( [
 					.then( traverseApps )
 					.then( saveInspectedApps )
 					.then( analyzeExtensionUsage )
-					//	//.then( closeSessionObjects )
 					.then( setLoadingStatus.bind( null, false ) )
 					.then( function () {
 						//console.info( 'apps', vm.apps );
-						//console.info( 'installedExtensions', vm.installedExtensions );
+						console.info( 'installedExtensions', vm.installedExtensions );
 						angular.noop(); // console.* will be removed in production, so have something inside the function.
 					} );
 
@@ -58,6 +54,10 @@ define( [
 				return deferred.promise;
 			}
 
+			function endsWith(str, suffix) {
+				return str.indexOf(suffix, str.length - suffix.length) !== -1;
+			}
+
 			/**
 			 * Get a list of installed extensions.
 			 * @returns {*|promise}
@@ -66,22 +66,23 @@ define( [
 
 				vm.loadingStatusHint = 'Loading extensions ...';
 
-				var deferred = $q.defer();
+				var defer = $q.defer();
 				qlik.getExtensionList( function ( extensions ) {
 
 						// Filter to only visualization extensions, because we'll also get mashups, visualization-templates and mashup-templates
+						// There is a bug in 2.1.1 which returns all extensions of type "visualization" as "template", therefore don't do it.
 						var onlyVizExtensions = _.filter( extensions, function ( item ) {
-							return item.data.type === 'visualization';
+							return item.data.type === 'visualization' || !endsWith(item.id, '-template');
 						} );
+
 						_.map( onlyVizExtensions, function ( viz ) {
 							viz.usedIn = [];
 						} );
 						vm.installedExtensions = onlyVizExtensions;
-						deferred.resolve( onlyVizExtensions );
+						defer.resolve( onlyVizExtensions );
 					}
-				)
-				;
-				return deferred.promise;
+				);
+				return defer.promise;
 			}
 
 			/**
@@ -120,24 +121,19 @@ define( [
 
 				vm.loadingStatusHint = 'Analyzing apps ...';
 
-				//console.info( 'traverseApps', '(' + apps.length + ')' );
-				//console.log( 'traverseApps', apps );
-
 				return $q.all( apps.map( function ( app ) {
 
 					var deferred = $q.defer();
-					//console.log( 'app', app );
 					processApp( app )
 						.then( function ( processedApp ) {
-							//console.log( '--app processed', processedApp );
+							//console.log( '--app processed => ', processedApp );
 							vm.loadingStatusHint = 'Analyzing \"' + processedApp.qDocName + '\"';
 							app.missingExtensions = []; 	// Initialize the array
 							app.usedExtensions = []; 		// Initialize the array
 							deferred.resolve( app );
-						} )
-						.catch( function ( reply ) {
-							//console.error( 'Error in processApp', reply );
-							deferred.resolve( /*reply*/ );
+						}, function ( err ) {
+							//console.error( 'Error in processApp', err );
+							deferred.reject( /*reply*/ );
 						} );
 
 					return deferred.promise;
@@ -148,11 +144,11 @@ define( [
 			 * Process a single app:
 			 * - open the app
 			 * - Get all sheet objects
-			 * @param app
+			 * @param appData
 			 * @returns {*|promise}
 			 */
-			function processApp ( app ) {
-				var def = $q.defer();
+			function processApp ( appData ) {
+				var defer = $q.defer();
 
 				//console.log( '>> processApp >> app.qDocId', app.qDocId );
 				//console.log( '>> processApp >> qlik', qlik );
@@ -160,32 +156,27 @@ define( [
 
 				//Todo: Check this on server, not clear how this needs to be handled
 				var currApp;
-				var isCurrentApp = false;
-				if ( app.qDocId.replace( '.qvf', '' ) !== qlik.currApp().id ) {
-					currApp = qlik.openApp( app.qDocId, {openWithoutData: true} );
-					//
-					//}
-					//catch ( ex ) {
-					//	//console.error( 'Error opening app \"' + app.qTitle + '\"', ex );
-					//	if ( currApp ) {
-					//	}
-					//	deferred.resolve( app );
-					//}
-
+				appData.isCurrentApp = (appData.qDocId.replace( '.qvf', '' ) !== qlik.currApp().id);
+				if ( appData.isCurrentApp ) {
+					currApp = qlik.openApp( appData.qDocId, {openWithoutData: true} );
 				} else {
 					currApp = qlik.currApp();
-					isCurrentApp = true;
 				}
 				currApp.getAppObjectList( 'sheet', function ( reply ) {
-					app.qAppObjectList = reply.qAppObjectList;
-					//console.log( 'processApp >> getAppObjectList >> reply', reply );
-					currApp.destroySessionObject( reply.qInfo.qId ).then( function () {
-						if ( !isCurrentApp ) { currApp.close(); }
-						def.resolve( app );
-					} );
+					appData.qAppObjectList = reply.qAppObjectList;
+					currApp.destroySessionObject( reply.qInfo.qId )
+						.then( function () {
+							if ( !appData.isCurrentApp ) {
+								currApp.close();
+								defer.resolve( appData );
+							} else {
+								defer.resolve( appData );
+							}
+						}, function ( err ) {
+							defer.reject( err );
+						} );
 				} );
-
-				return def.promise;
+				return defer.promise;
 			}
 
 			/**
@@ -373,7 +364,7 @@ define( [
 					};
 					vm.missingExtensions.push( missingExtension );
 				} else {
-					missingExtension.usageCount ++;
+					missingExtension.usageCount++;
 				}
 
 				// Add the app

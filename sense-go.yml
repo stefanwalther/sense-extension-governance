@@ -14,3 +14,4 @@ import:
     - ["./node_modules/sense-angular-directives/dist/eui-tooltip/eui-tooltip.js", "./.tmp/lib/components/eui-tooltip"]
     - ["./node_modules/sense-angular-directives/dist/eui-tooltip/eui-tooltip.css", "./.tmp/lib/components/eui-tooltip"]
     - ["./node_modules/sense-angular-directives/dist/eui-state-msg/eui-state-msg.js", "./.tmp/lib/components/eui-state-msg"]
+    - ["./node_modules/sense-angular-directives/dist/eui-state-msg/eui-state-msg.ng.html", "./.tmp/lib/components/eui-state-msg"]

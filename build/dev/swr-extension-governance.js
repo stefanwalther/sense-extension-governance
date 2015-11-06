@@ -14,7 +14,9 @@ define( [
 		'./lib/components/eui-note/eui-note',
 		'./lib/components/eui-collapse/eui-collapse',
 		'./lib/components/eui-tooltip/eui-tooltip',
-		'./lib/components/eui-tablesort/eui-tablesort'
+		'./lib/components/eui-tablesort/eui-tablesort',
+		'./lib/components/eui-state-msg/eui-state-msg'
+
 
 	],
 	function ( qvangular, props, initProps, extensionUtils, cssContent, ngTemplate ) {
@@ -23,6 +25,7 @@ define( [
 		extensionUtils.addStyleToHeader( cssContent, 'swr_extension_governance' );
 		var egService = qvangular.getService( 'swrExtensionGovernanceService' );
 		egService.init();
+
 
 		return {
 

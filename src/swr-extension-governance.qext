@@ -1,9 +1,9 @@
 {
-	"name" : "Extension Governance",
-	"description" : "@@pkg.description",
-	"icon" : "extension",
-	"type" : "visualization",
+	"name": "Extension Governance",
+	"description": "@@pkg.description",
+	"icon": "extension",
+	"type": "visualization",
 	"version": "@@pkg.version",
-	"preview" : "preview.png",
+	"preview": "preview.png",
 	"author": "Stefan Walther"
 }
