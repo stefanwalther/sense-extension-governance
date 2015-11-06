@@ -4,6 +4,8 @@
 
 > Analyze usage of Qlik Sense visualization extensions across your entire environment.
 
+![](https://raw.githubusercontent.com/sense-extension-governance/master/docs/images/sense-extension-governance.png)
+
 <!-- toc -->
 
 * [Purpose and Description](#purpose-and-description)
@@ -34,19 +36,19 @@ If you can answer one if the questions above with YES, then this solution might 
 
 **List of installed extensions**
 
-> [![](docs/images/screenshot_installed.png)](#purpose-and-description)
+> [![](https://raw.githubusercontent.com/sense-extension-governance/master/docs/images/screenshot_installed.png)](#screenshots)
 
 **List of used extensions + apps**
 
-> [![](docs/images/screenshot_usage.png)](#screenshots)
+> [![](https://raw.githubusercontent.com/sense-extension-governance/master/docs/images/screenshot_usage.png)](#installation)
 
 **List of missing extensions**
 
-> [![](docs/images/screenshot_missing.png)](#installation)
+> [![](https://raw.githubusercontent.com/sense-extension-governance/master/docs/images/screenshot_missing.png)](#usage)
 
 ## Installation
 
-1. Download the latest version
+1. Download the [latest version](https://github.com/stefanwalther/sense-extension-governance/raw/master/build/sense-extension-governance_latest.zip)
 2. Qlik Sense Desktop
   - To install, copy all files in the .zip file to folder "C:\Users[%Username%]\Documents\Qlik\Sense\Extensions\sense-extension-governance"
 * Qlik Sense Server

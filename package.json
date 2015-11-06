@@ -37,5 +37,10 @@
     "sense-go": "^0.3.3",
     "should": "*"
   },
-  "keywords": []
+  "keywords": [],
+  "verb": {
+    "baseUrl": "https://github.com/stefanwalther/sense-extension-governance/blob/master/",
+    "baseImgUrl": "https://raw.githubusercontent.com/sense-extension-governance/master/",
+    "buildLatest": "https://github.com/stefanwalther/sense-extension-governance/raw/master/build/sense-extension-governance_latest.zip"
+  }
 }
