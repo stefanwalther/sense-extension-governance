@@ -1,1 +1,1 @@
-See [CHANGELOG](CHANGELOG.yml)
+See [CHANGELOG.yml](CHANGELOG.yml)

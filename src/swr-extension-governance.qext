@@ -4,6 +4,6 @@
 	"icon" : "extension",
 	"type" : "visualization",
 	"version": "@@pkg.version",
-	"preview" : "swr-extension-governance.png",
+	"preview" : "preview.png",
 	"author": "Stefan Walther"
 }

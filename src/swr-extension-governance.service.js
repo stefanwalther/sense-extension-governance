@@ -17,14 +17,11 @@ define( [
 			var vm = {};
 
 			var init = function () {
-				console.info( 'Initialize egService' );
 				vm.loadingStatusHint = '';
 				vm.apps = [];
 				vm.isLoading = false;
 				vm.missingExtensions = [];
 
-				// Doesn't really help to suppress an error from the engine, the client side error modal will still
-				// be shown
 				qlik.setOnError( function ( error ) {
 					//console.error( error );
 				} );
@@ -79,8 +76,7 @@ define( [
 						vm.installedExtensions = onlyVizExtensions;
 						deferred.resolve( onlyVizExtensions );
 					}
-				)
-				;
+				);
 				return deferred.promise;
 			}
 
@@ -373,7 +369,7 @@ define( [
 					};
 					vm.missingExtensions.push( missingExtension );
 				} else {
-					missingExtension.usageCount ++;
+					missingExtension.usageCount++;
 				}
 
 				// Add the app
