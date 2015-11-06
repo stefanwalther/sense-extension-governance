@@ -4,7 +4,7 @@
 
 > Analyze usage of Qlik Sense visualization extensions across your entire environment.
 
-![](https://raw.githubusercontent.com/sense-extension-governance/master/docs/images/sense-extension-governance.png)
+![](https://raw.githubusercontent.com/stefanwalther/sense-extension-governance/master/docs/images/sense-extension-governance.png)
 
 <!-- toc -->
 
@@ -36,15 +36,15 @@ If you can answer one if the questions above with YES, then this solution might 
 
 **List of installed extensions**
 
-> [![](https://raw.githubusercontent.com/sense-extension-governance/master/docs/images/screenshot_installed.png)](#screenshots)
+> [![](https://raw.githubusercontent.com/stefanwalther/sense-extension-governance/master/docs/images/screenshot_installed.png)](#screenshots)
 
 **List of used extensions + apps**
 
-> [![](https://raw.githubusercontent.com/sense-extension-governance/master/docs/images/screenshot_usage.png)](#installation)
+> [![](https://raw.githubusercontent.com/stefanwalther/sense-extension-governance/master/docs/images/screenshot_usage.png)](#installation)
 
 **List of missing extensions**
 
-> [![](https://raw.githubusercontent.com/sense-extension-governance/master/docs/images/screenshot_missing.png)](#usage)
+> [![](https://raw.githubusercontent.com/stefanwalther/sense-extension-governance/master/docs/images/screenshot_missing.png)](#usage)
 
 ## Installation
 
