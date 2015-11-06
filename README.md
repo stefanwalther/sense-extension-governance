@@ -1,4 +1,6 @@
-# Governance for Visualization Extensions in Qlik Sense (sense-extension-governance)
+# sense-extension-governance
+
+## Governance for Visualization Extensions in Qlik Sense
 
 > Analyze usage of Qlik Sense visualization extensions across your entire environment.
 
