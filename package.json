@@ -32,7 +32,7 @@
   "devDependencies": {
     "gulp": "git://github.com/gulpjs/gulp#4.0",
     "mocha": "*",
-    "sense-angular-directives": "^0.1.5",
+    "sense-angular-directives": "^0.1.6",
     "sense-extension-utils": "^0.3.0",
     "sense-go": "^0.3.3",
     "should": "*"
