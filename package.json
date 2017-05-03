@@ -34,7 +34,7 @@
     "mocha": "*",
     "sense-angular-directives": "^0.1.6",
     "sense-extension-utils": "^0.3.0",
-    "sense-go": "^0.3.3",
+    "sense-go": "^0.12.2",
     "should": "*"
   },
   "keywords": [],
