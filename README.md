@@ -1,5 +1,7 @@
 # sense-extension-governance
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/stefanwalther/sense-extension-governance.svg)](https://greenkeeper.io/)
+
 ## Governance for Visualization Extensions in Qlik Sense
 
 > Analyze usage of Qlik Sense visualization extensions across your entire environment.
