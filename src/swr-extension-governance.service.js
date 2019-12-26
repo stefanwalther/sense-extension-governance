@@ -174,7 +174,10 @@ define( [
 					currApp.destroySessionObject( reply.qInfo.qId )
 						.then( function () {
 							if ( !appData.isCurrentApp ) {
-								currApp.close();
+								try {
+									currApp.close();
+								}
+								catch ( err) { /*eat it*/}
 								defer.resolve( appData );
 							} else {
 								defer.resolve( appData );
